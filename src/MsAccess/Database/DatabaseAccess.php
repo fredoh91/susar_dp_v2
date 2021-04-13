@@ -41,6 +41,12 @@ class DatabaseAccess {
         return self::$_instance;
     }    
 
+    public function Query($query)
+    {
+        
+    }
+    
+    
     /**
      * 
      * @return array
