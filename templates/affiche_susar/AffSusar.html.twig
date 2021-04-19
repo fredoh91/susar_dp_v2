@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+
+
+
+{{ form_start(form, {'attr': {'id': 'form_susar_dp'}}) }}
+
+{#{{ form_widget(form) }}
+ <div class="mx-auto" style="width: 400px;">
+    <h3 class="display-5">Saisie des info</h3>
+</div> #}
+<div class="row">
+  <div class="col-md-1">{{ form_row(form.DP) }}</div>
+  {# <div class="col-md-1">{{ form_row(form.DP_2) }}</div> #}
+<div class="col-md-2">{{ form_row(form.Evaluateurs) }}</div>
+<div class="col-md-8">{{ form_row(form.DMM) }}</div>
+</div>
+{# {{ form_row(form.Categorie) }}
+{{ form_row(form.BN_Label) }}
+{{ form_row(form.Label) }}
+<div class="row justify-content-around">
+<div class="col-md-2">{{ form_row(form.CIS) }}</div>
+<div class="col-md-2">{{ form_row(form.ATC7) }}</div>
+</div> #}
+<button class="btn btn-primary float-right">Rechercher</button>
+{{ form_end(form) }}
+
+<div>
+  Nb pages : {{ NbPage }}
+</div>
+
+<div class="container-fluid mt-3 mb-5 pb-5">
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-primary">
+            <th>idSUSAR_PROD</th>
+            <th>nomFichierC</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for Pagi in TabPagi %}
+            <tr>
+                <td>{{ Pagi.idSUSAR_PROD }}</td> 
+                <td>{{ Pagi.nomFichierC }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+  <nav aria-label="...">
+    <ul class="pagination justify-content-center">
+      {% if page > 1 %}
+      <li class="page-item">
+        <a class="page-link" href="{{ path('affiche_susar') }}/1" tabindex="-1">Premier</a>
+      </li>
+        <li class="page-item"><a class="page-link" href="{{ path('affiche_susar') }}/{{ page - 1 }}">{{ page - 1 }}</a></li>
+      {% else %}
+      
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      {% endif %}
+
+      <li class="page-item active">
+        <a class="page-link" href="#">{{ page }}
+            {# <span class="sr-only">(current)</span> #}
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="{{ path('affiche_susar') }}/{{ page + 1 }}">{{ page + 1 }}</a></li>
+      <li class="page-item">
+        <a class="page-link" href="{{ path('affiche_susar') }}/{{ NbPage|round }}">Dernier</a>
+        
+      </li>
+    </ul>
+  </nav>
+
+
+    {# <nav aria-label="...">
+    <ul class="pagination justify-content-center">
+      {% if page > 1 %}
+      <li class="page-item">
+        <a class="page-link" href="{{ path('affiche_susar') }}&page=1" tabindex="-1">Premier</a>
+      </li>
+        <li class="page-item"><a class="page-link" href="{{ path('affiche_susar') }}&page={{ page - 1 }}">{{ page - 1 }}</a></li>
+      {% else %}
+      
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1">Previous</a>
+      </li>
+      {% endif %}
+
+      <li class="page-item active">
+        <a class="page-link" href="#">{{ page }}<span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="{{ path('affiche_susar') }}&page={{ page + 1 }}">{{ page + 1 }}</a></li>
+      <li class="page-item">
+        <a class="page-link" href="{{ path('affiche_susar') }}&page={{ NbPage|round }}">Dernier</a>
+        
+      </li>
+    </ul>
+  </nav> #}
+
+
+
+{% endblock %}

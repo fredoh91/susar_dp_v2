@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\MsAccess\Requetes\RqSusarDP;
 use App\MsAccess\Pagination\MsAccessPaginator;
-// use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\SusarDPFormType;
 class AfficheSUSARController extends AbstractController
 {
 
@@ -18,25 +18,30 @@ class AfficheSUSARController extends AbstractController
      */
     public function AffSusar(MsAccessPaginator $paginator, Request $request, $page): Response
     {
-        // dump($request->query->get('page'));
         $RqSusarDP = new RqSusarDP();
-        // $paginator->test();
-        // $RqSusarDP->test();
-        // $page = 2;
         $nbParPage = 30;
-        $AllSusarDP = $RqSusarDP->SelectAllSusar();
-        // dump(count($AllSusarDP));
+
+        $form = $this->createForm(SusarDPFormType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $clauseWhere = $RqSusarDP->getWhere($data);
+            $clauseWhereBindParam = $RqSusarDP->getWhereBindParam($data);
+            $AllSusarDP = $RqSusarDP->SelectSusar($clauseWhere, $clauseWhereBindParam);
+        } else {
+            $AllSusarDP = $RqSusarDP->SelectAllSusar();
+        }
+
         $TabPagi = $paginator->paginate($AllSusarDP, $page, $nbParPage);
 
         $NbPage = count($AllSusarDP) / $nbParPage;
-        dump($NbPage);
-        // dd(count($TabPagi));
-        return $this->render('affiche_susar/AffTest.html.twig', [
+
+        return $this->render('affiche_susar/AffSusar.html.twig', [
             'controller_name' => 'test',
-            // 'AllSusarDP' => $AllSusarDP,
             'TabPagi' => $TabPagi,
             'page' => $page,
             'NbPage' => $NbPage,
+            'form' => $form->createView(),
         ]);        
     } 
 
