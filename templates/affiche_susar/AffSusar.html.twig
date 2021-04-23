@@ -7,7 +7,9 @@
 
 
 
-{{ form_start(form, {'attr': {'id': 'form_susar_dp'}}) }}
+{# {{ form_start(form, {'attr': {'id': 'form_susar_dp'}}  ) }} #}
+{# {{ form_start(form, {'attr': {'id': 'form_susar_dp'},'action': path('affiche_susar'), 'method': 'GET'}  ) }} #}
+{{ form_start(form, {'attr': {'id': 'form_susar_dp'},'action': path('affiche_susar')}  ) }}
 
 {#{{ form_widget(form) }}
  <div class="mx-auto" style="width: 400px;">

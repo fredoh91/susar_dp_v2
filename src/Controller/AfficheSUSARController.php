@@ -11,23 +11,57 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\SusarDPFormType;
 class AfficheSUSARController extends AbstractController
 {
-
+    // private $resquery;
     /**
      * @Route("/affichesusar/{page<\d+>?1}", name="affiche_susar")
      * @return Response
      */
-    public function AffSusar(MsAccessPaginator $paginator, Request $request, $page): Response
+    public function AffSusar(MsAccessPaginator $paginator, Request $request, $page, RqSusarDP $RqSusarDP): Response
     {
-        $RqSusarDP = new RqSusarDP();
+        // $RqSusarDP = new RqSusarDP();
+        // if($this->resquery!==null) {
+        //     dd($this->resquery);
+        // }
+
         $nbParPage = 30;
 
         $form = $this->createForm(SusarDPFormType::class);
+        // $form = $this->createForm(SusarDPFormType::class,[
+        //     'action' => $this->generateUrl("affiche_susar"),
+        //     'method' => 'GET'
+        // ]);
         $form->handleRequest($request);
+
+        if ($request->isMethod('GET')) {
+            dump('c est get');
+            $data = $form->getData();
+            dump($data);
+        }
+        if ($request->isMethod('POST')) {
+            dump('c est post');
+        }
+        if ($form->isSubmitted()) {
+dump('c est submitted');
+            
+            if ( $form->isValid()) {
+
+dump('c est valid');
+            
+            }else {
+            dump('c est pas valid');
+        }
+
+        }else {
+            dump('c est pas submitted');
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            // dump("salut");
+            dump($data);
             $clauseWhere = $RqSusarDP->getWhere($data);
             $clauseWhereBindParam = $RqSusarDP->getWhereBindParam($data);
             $AllSusarDP = $RqSusarDP->SelectSusar($clauseWhere, $clauseWhereBindParam);
+            $page=1;
         } else {
             $AllSusarDP = $RqSusarDP->SelectAllSusar();
         }
@@ -35,9 +69,8 @@ class AfficheSUSARController extends AbstractController
         $TabPagi = $paginator->paginate($AllSusarDP, $page, $nbParPage);
 
         $NbPage = count($AllSusarDP) / $nbParPage;
-
+        // $this->resquery = $AllSusarDP;
         return $this->render('affiche_susar/AffSusar.html.twig', [
-            'controller_name' => 'test',
             'TabPagi' => $TabPagi,
             'page' => $page,
             'NbPage' => $NbPage,
