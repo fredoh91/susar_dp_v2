@@ -29,7 +29,7 @@ class SusarDPFormType extends AbstractType
                 'empty_data' => '',
                 'required' => false,
                 'choice_label' => 'nomEval',
-                'label_format' => 'Évaluateur', 
+                'label_format' => 'Évaluateur',
             ])
             ->add('DMM', EntityType::class, [
                 'class' => IntervenantANSMDMM::class,
