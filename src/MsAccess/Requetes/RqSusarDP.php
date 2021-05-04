@@ -7,6 +7,8 @@ use App\Entity\DP;
 use App\Entity\Evaluateurs;
 use App\Entity\IntervenantANSMDMM;
 use phpDocumentor\Reflection\Types\Null_;
+use App\Repository\EvaluateursRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Description of TrtBaseEM
@@ -17,11 +19,13 @@ class RqSusarDP {
 
     private $DbAccess;
     private $PdoAccess;
+    private $em;
 
     function __construct()
     {
         $this->DbAccess = new DatabaseAccess();
         $this->PdoAccess = $this->DbAccess->getPdoAccess();
+        // $this->em = $em;
     }
     public function test()
     {
@@ -82,7 +86,7 @@ class RqSusarDP {
      * @param array $data
      * @return string
      */
-    public function getWhere(array $data): string {
+    public function getWhere(array $data, EntityManagerInterface $em): string {
         $where = "";
         foreach ($data as $key => $value) {
             // if($value!==null) {
@@ -99,10 +103,34 @@ class RqSusarDP {
                 // $icpt++;
                 $where .= " AND SUSAR_EVAL.evaluateurDP = ? ";
             }elseif($key === 'DMM' and $value !== null) {
+
+                // dd($value);
+                // dd( $em);
+                $whereDMM = '';
+                $repo_eval = $em->getRepository(Evaluateurs::class);
+                $liste_eval = $repo_eval->findByDMM_id($value->getId());
+                // dd($liste_eval);
+                foreach ($liste_eval as $k => $v) {
+                    // $where .= " AND SUSAR_EVAL.evaluateurDP = ? ";
+                    // dd($v->getNomEval());
+                    if($whereDMM === '') {
+                        $whereDMM .= " SUSAR_EVAL.evaluateurDP = '" . $v->getNomEval() . "'" ;
+                    } else {
+                        $whereDMM .= " OR SUSAR_EVAL.evaluateurDP = '" . $v->getNomEval() . "'" ;
+                    }
+                    
+                    
+                }
+                // dd($whereDMM);
+                // $repoEval = new EvaluateursRepository();
+                // dd($repoEval->findByDMM_id($value->getId()));
+                // dd($repoEval->findByDMM_id($value->getId()));
+                // dd($value->getNomEval());
                 // dump("bind param : DMM");
                 // $where[$icpt] = $value->getDMMCourt();
                 // $icpt++;
-                $where .= " AND $key = ? ";
+                // $where .= " AND $key = ? ";
+                $where .= " AND ($whereDMM) ";
             }else {}
         }
         return $where;
@@ -127,10 +155,12 @@ class RqSusarDP {
                 $icpt++;
             }elseif($key === 'DMM' and $value !== null) {
                 // dump("bind param : DMM");
-                $where[$icpt] = $value->getDMMCourt();
-                $icpt++;
+                // $where[$icpt] = $value->getDMMCourt();
+                // $icpt++;
             }else {}
         }
         return $where;
     }
+
+ 
 }

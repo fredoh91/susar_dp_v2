@@ -19,6 +19,21 @@ class IntervenantANSMDMMRepository extends ServiceEntityRepository
         parent::__construct($registry, IntervenantANSMDMM::class);
     }
 
+    /**
+     * @return IntervenantANSMDMM[] Returns an array of IntervenantANSMDMM objects
+     */
+    
+    public function findDMMactif()
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.FlActif = :val')
+            ->setParameter('val', true)
+            ->orderBy('i.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     // /**
     //  * @return IntervenantANSMDMM[] Returns an array of IntervenantANSMDMM objects
     //  */

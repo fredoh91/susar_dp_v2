@@ -19,6 +19,22 @@ class EvaluateursRepository extends ServiceEntityRepository
         parent::__construct($registry, Evaluateurs::class);
     }
 
+    /**
+     * @return Evaluateurs[] Returns an array of Evaluateurs objects
+     */
+    
+    public function findByDMM_id( $value ): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.DMM = :val')
+            ->setParameter('val', $value)
+            // ->orderBy('e.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+
     // /**
     //  * @return Evaluateurs[] Returns an array of Evaluateurs objects
     //  */

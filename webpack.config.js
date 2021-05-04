@@ -22,7 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     // .addStyleEntry('appcss', './assets/styles/app.scss')
-
+    .addStyleEntry('css/AffSusar', ['./assets/styles/AffSusar.scss'])
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 

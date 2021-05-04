@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\IntervenantANSMDMMRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,16 @@ class IntervenantANSMDMM
      * @ORM\Column(type="boolean")
      */
     private $FlActif;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Evaluateurs::class, mappedBy="DMM")
+     */
+    private $nomEval;
+
+    public function __construct()
+    {
+        $this->nomEval = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +81,36 @@ class IntervenantANSMDMM
     public function setFlActif(bool $FlActif): self
     {
         $this->FlActif = $FlActif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Evaluateurs[]
+     */
+    public function getNomEval(): Collection
+    {
+        return $this->nomEval;
+    }
+
+    public function addNomEval(Evaluateurs $nomEval): self
+    {
+        if (!$this->nomEval->contains($nomEval)) {
+            $this->nomEval[] = $nomEval;
+            $nomEval->setDMM($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNomEval(Evaluateurs $nomEval): self
+    {
+        if ($this->nomEval->removeElement($nomEval)) {
+            // set the owning side to null (unless already changed)
+            if ($nomEval->getDMM() === $this) {
+                $nomEval->setDMM(null);
+            }
+        }
 
         return $this;
     }

@@ -8,13 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\MsAccess\Requetes\RqSusarDP;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\SusarDPFormType;
+use Doctrine\ORM\EntityManagerInterface;
 class AfficheSUSARController extends AbstractController
 {
     /**
      * @Route("/affichesusar/{page<\d+>?1}", name="affiche_susar")
      * @return Response
      */
-    public function AffSusar(Request $request, RqSusarDP $RqSusarDP): Response
+    public function AffSusar(Request $request, RqSusarDP $RqSusarDP, EntityManagerInterface $em): Response
     {
 
         $form = $this->createForm(SusarDPFormType::class);
@@ -22,10 +23,10 @@ class AfficheSUSARController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $clauseWhere = $RqSusarDP->getWhere($data);
+            $clauseWhere = $RqSusarDP->getWhere($data, $em);
             $clauseWhereBindParam = $RqSusarDP->getWhereBindParam($data);
 
-            // dump($clauseWhere);
+            // dd($clauseWhere);
             // dump($clauseWhereBindParam);
             $AllSusarDP = $RqSusarDP->SelectSusar($clauseWhere, $clauseWhereBindParam);
         } else {

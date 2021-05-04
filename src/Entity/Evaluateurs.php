@@ -32,6 +32,11 @@ class Evaluateurs
      */
     private $FlActif;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=IntervenantANSMDMM::class, inversedBy="nomEval")
+     */
+    private $DMM;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Evaluateurs
     public function setFlActif(bool $FlActif): self
     {
         $this->FlActif = $FlActif;
+
+        return $this;
+    }
+
+    public function getDMM(): ?IntervenantANSMDMM
+    {
+        return $this->DMM;
+    }
+
+    public function setDMM(?IntervenantANSMDMM $DMM): self
+    {
+        $this->DMM = $DMM;
 
         return $this;
     }

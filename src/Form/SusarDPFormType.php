@@ -11,9 +11,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\DP;
 use App\Entity\Evaluateurs;
 use App\Entity\IntervenantANSMDMM;
+use App\Repository\IntervenantANSMDMMRepository;
 
 class SusarDPFormType extends AbstractType
 {
+    private $DMMRepository;
+    public function __construct(IntervenantANSMDMMRepository $DMMRepository)
+    {
+        $this->DMMRepository = $DMMRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -36,7 +43,9 @@ class SusarDPFormType extends AbstractType
                 'empty_data' => '',
                 'required' => false,
                 'choice_label' => 'DMM',
-                'label_format' => 'DMM / Pôle', 
+                'label_format' => 'DMM / Pôle',
+                'choices' => $this->DMMRepository->findDMMactif(), 
+                
             ])
         ;
     }
