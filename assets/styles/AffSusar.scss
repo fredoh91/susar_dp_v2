@@ -1,3 +1,7 @@
+$bBrdGrey:Gainsboro;
+
+
+
 .requete {
     border: solid;
     border-radius: 20px;
@@ -19,3 +23,90 @@
     bottom: 10px;
     right: 10px;
 }
+
+%TdSusar {
+    border: solid;
+    border-color: $bBrdGrey;
+    border-width: thin;
+  }
+
+
+.cntrGrid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    // grid-template-rows: 25% 25% 25% 25%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "cioms cioms cioms cioms cioms cioms prod effet comm comm"
+      "dtimport dp gamme dteval eval follup prod effet comm comm"
+      "mesact mesact mesact mesact mesact idsusar prod effet comm comm"
+      "numeudra numeudra numcas numcas numcas attrib prod effet comm comm";
+}
+
+.cioms {
+    @extend %TdSusar;
+    grid-area: cioms;
+  }
+  .dtimport {
+    @extend %TdSusar;
+    grid-area: dtimport;
+  }
+  .dp {
+    @extend %TdSusar;
+    grid-area: dp;
+  }
+  .gamme {
+    @extend %TdSusar;
+    grid-area: gamme;
+  }
+  .dteval {
+    @extend %TdSusar;
+    grid-area: dteval;
+  }
+  .eval {
+    @extend %TdSusar;
+    grid-area: eval;
+  }
+  .follup {
+    @extend %TdSusar;
+    grid-area: follup;
+  }
+  .mesact {
+    @extend %TdSusar;
+    grid-area: mesact;
+  }
+  .idsusar {
+    @extend %TdSusar;
+    grid-area: idsusar;
+  }
+  .numeudra {
+    @extend %TdSusar;
+    grid-area: numeudra;
+  }
+  .numcas {
+    @extend %TdSusar;
+    grid-area: numcas;
+  }
+  .attrib {
+    @extend %TdSusar;
+    grid-area: attrib;
+    justify-self: center;
+  }
+  .prod {
+    @extend %TdSusar;
+    grid-area: prod;
+  }
+  .effet {
+    @extend %TdSusar;
+    grid-area: effet;
+  }
+  .comm {
+    @extend %TdSusar;
+    grid-area: comm;
+  }
+
+  .titreTD {
+    font-size: 0.8em;
+    text-decoration: underline;
+    font-weight: bold;
+  }

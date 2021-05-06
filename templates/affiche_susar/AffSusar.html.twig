@@ -5,9 +5,10 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <!-- {{ encore_entry_link_tags('css/AffSusar') }} -->
+
     
     <link rel="stylesheet" href="{{ asset('./build/css/AffSusar.css') }}">
+    <!-- <link rel="stylesheet" href="./build/css/AffSusar.css"> -->
 {% endblock %}
 
 
@@ -37,17 +38,76 @@
 <div class="container-fluid mt-3 mb-5 pb-5">
     <table class="table table-striped">
         <thead>
-            <tr class="table-primary">
-            <th>idSUSAR_PROD</th>
-            <th>nomFichierC</th>
-            </tr>
+            <!-- <tr class="table-primary">
+                <th>idSUSAR_PROD</th>
+                <th>nomFichierC</th>
+            </tr> -->
+
+
+
         </thead>
         <tbody>
         {% for SusarDP in SusarsDP %}
             <tr>
-                <td>{{ SusarDP.idSUSAR_PROD }}</td> 
-                <td>{{ SusarDP.nomFichierC }}</td>
+                <td>
+                    <div class="cntrGrid">
+
+                        <!-- 1ere ligne -->
+                        <div class="cioms">
+                            <span class="titreTD">Fiche CIOMS : </span>{{ SusarDP.nomFichierC }}
+                        </div>
+
+                        <div class="prod">
+                            <span class="titreTD">Produit : </span>{{ SusarDP.Produit }}
+                        </div>
+                        <div class="effet">
+                            <span class="titreTD">Effet : </span>{{ SusarDP.Effet|convert_encoding("UTF-8", "ISO-8859-1") }}
+                        </div>
+                        <div class="comm">
+                            <span class="titreTD">Commentaire : </span>{{ SusarDP.Commentaire|convert_encoding("UTF-8", "ISO-8859-1") }}
+                        </div>
+
+                        <!-- 2eme ligne -->
+                        <div class="dtimport">
+                            <span class="titreTD">date import : </span> {{ SusarDP.dateImporte|date("m/d/Y") }}
+                        </div>
+                        <div class="dp">
+                            <span class="titreTD">DP : </span>{{ SusarDP.DP }}
+                        </div>
+                        <div class="gamme">
+                            <span class="titreTD">Gamme : </span>{{ SusarDP.evaluateurDP }}
+                        </div>
+                        <div class="dteval">
+                            <span class="titreTD">date éval. : </span>{{ SusarDP.DateEvalDP|date("m/d/Y") }}
+                        </div>
+                        <div class="eval">
+                            <span class="titreTD">Utilisateur : </span>{{ SusarDP.UtilisateurEvalDP }}
+                        </div>
+                        <div class="follup">
+                            <span class="titreTD">Follow up : </span>{{ SusarDP.FollowUp }}
+                        </div>
+
+                        <!-- 3eme ligne -->
+                        <div class="mesact">
+                            <span class="titreTD">Mesure/action : </span>{{ SusarDP.TypeMesureAction|convert_encoding("UTF-8", "ISO-8859-1") }}
+                        </div>
+                        <div class="idsusar">
+                            <span class="titreTD">idSUSAR : </span>{{ SusarDP.idSUSAR_PROD }}
+                        </div>
+                        <!-- 4eme ligne -->
+                        <div class="numeudra">
+                            <span class="titreTD">Numéro EUDRA_CT : </span>{{ SusarDP.NumEUDRA_CT }}
+                        </div>
+                        <div class="numcas">
+                            <span class="titreTD">Numéro cas : </span>{{ SusarDP.NumCas }}
+                        </div>
+                        <div class="attrib">
+                            <input type="button" value="M'attribuer ce SUSAR">
+                        </div>
+                    </div>
+                </td>
             </tr>
+        
         {% endfor %}
         </tbody>
     </table>
