@@ -35,6 +35,17 @@
   Nb SUSARs : {{ SusarsDP | length }}
 </div> 
 
+{# <a href="C:\xampp\htdocs\susar_dp_v2\public\07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf"  target="_blank">Ce lien affiche le PDF dans le navigateur</a> #}
+{# <a href="file:///c:/xampp/htdocs/susar_dp_v2/public/07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf"  target="_blank">Ce lien affiche le PDF dans le navigateur</a> #}
+{# <a href="file:///C:\xampp\htdocs\susar_dp_v2\public\07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf"  target="_blank">Ce lien affiche le PDF dans le navigateur</a> #}
+{# <a href="file:///C:\xampp\htdocs\susar_dp_v2\public\07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf">test1.pdf</a><br>
+<a href="file:///C:/xampp/htdocs/susar_dp_v2/public/07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf">test2.pdf</a><br>
+<a href=".\07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf"  target="_blank">test3.pdf</a><br> #}
+{# <a href="fichier.php">Test1</a><br>
+
+<a href="fichier2.php?link=S:\SUSAR\SUSARPROD\SUSAR\DP2\2020\Semestre1\04\CARDIO1\Prioritaires\20200330_AZP01-CLI-003_2018-003062-13_US_2020USLIVOLETIDE0015_0_CT_C.PDF">Test2</a><br> #}
+
+
 <div class="container-fluid mt-3 mb-5 pb-5">
     <table class="table table-striped">
         <thead>
@@ -54,7 +65,9 @@
 
                         <!-- 1ere ligne -->
                         <div class="cioms">
-                            <span class="titreTD">Fiche CIOMS : </span>{{ SusarDP.nomFichierC }}
+                            {# <span class="titreTD">Fiche CIOMS : </span>{{ SusarDP.nomFichierC }} #}
+                            <span class="titreTD">Fiche CIOMS : </span><a href="open_cioms.php?link={{ SusarDP.nomFichierC }}">{{ SusarDP.nomFichierC }}</a><br>
+
                         </div>
 
                         <div class="prod">
