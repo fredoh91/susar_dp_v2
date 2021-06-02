@@ -5,46 +5,85 @@
 
 {% block stylesheets %}
     {{ parent() }}
-
-    
     <link rel="stylesheet" href="{{ asset('./build/css/AffSusar.css') }}">
     <!-- <link rel="stylesheet" href="./build/css/AffSusar.css"> -->
 {% endblock %}
 
 
 
-
 {% block body %}
 <div class="requete">
     {{ form_start(form, {'attr': {'id': 'form_susar_dp'},'action': path('affiche_susar')}  ) }}
-
-    <div class="requete_simple">
-        <div class="row">
-        <div class="col-md-1">{{ form_row(form.DP) }}</div>
-        <div class="col-md-2">{{ form_row(form.Evaluateurs) }}</div>
-        <div class="col-md-8">{{ form_row(form.DMM) }}</div>
+    <div class="reqsimple_btn">
+        <div class="requete_simple">
+            <div class="frm_dp">{{ form_row(form.DP) }}</div>
+            <div class="frm_eval">{{ form_row(form.Evaluateurs) }}</div>
+            <div class="frm_dmm">{{ form_row(form.DMM) }}</div>
         </div>
+        <div class="btnSusarVer">
+            <button class="btn btn-primary btnRechSusar">Rechercher</button>
+            {# <button class="btnRechSusar">Rechercher</button> #}
+            <span id="RechAv" class="btnRechSusar">Recherche avancée</span>
+            <span class="btnRechSusar">Reset champs</span>
+        </div>
+
     </div>
+
+    
 
     <div class="requete_avancee">
+
+        <div class="requete_SUSAR">
+            <div class="rq_deces">{{ form_row(form.Deces) }}</div>
+            <div class="rq_pro_vital">{{ form_row(form.ProVital) }}</div>
+            <div class="rq_france">{{ form_row(form.France) }}</div>
+            <div class="rq_COVID">{{ form_row(form.COVID) }}</div>
+            <div class="rq_vol_sain">{{ form_row(form.VolSain) }}</div>
+
+            <div class="rq_CIOMS">{{ form_row(form.CIOMS) }}</div>
+            <div class="rq_idSusar">{{ form_row(form.idSusar) }}</div>
+            <div class="rq_NumEudraCT">{{ form_row(form.NumEudraCT) }}</div>
+            <div class="rq_NumCas">{{ form_row(form.NumCas) }}</div>
+            
+            <div class="rq_DateRecep">
+                <div class="DateRecep">
+                    {{ form_row(form.DateRecepDeb) }}
+                    {{ form_row(form.DateRecepFin) }}  
+                </div>
+            </div>
+        </div>
+        <div class="requete_SUSAR_evalues">
+
+            <div class="rq_Effet">{{ form_row(form.Effet) }}</div>
+            
+            <div class="rq_Comment">{{ form_row(form.Comment) }}</div>
+            
+            <div class="rq_Prod">{{ form_row(form.Prod) }}</div>
+            
+            <div class="rq_Evalue">{{ form_row(form.Evalue) }}</div>
+            
+            <div class="rq_UtilEvalDP">{{ form_row(form.UtilEvalDP) }}</div>
+            
+            <div class="rq_MesAct">{{ form_row(form.MesAct) }}</div>
+            
+            <div class="rq_FollUp">{{ form_row(form.FollUp) }}</div>
+            
+            <div class="rq_TypMesAct">{{ form_row(form.TypMesAct) }}</div>
+            
+            <div class="rq_DateEval">
+                <div class="DateEval">
+                    {{ form_row(form.DateEvalDeb) }}
+                    {{ form_row(form.DateEvalFin) }}
+            </div>
+
+            
+        </div>
     </div>
-    <button class="btn btn-primary btnRechSusar">Rechercher</button>
     {{ form_end(form) }}
 </div>
 <div class="nb_susar">
   Nb SUSARs : {{ SusarsDP | length }}
-</div> 
-
-{# <a href="C:\xampp\htdocs\susar_dp_v2\public\07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf"  target="_blank">Ce lien affiche le PDF dans le navigateur</a> #}
-{# <a href="file:///c:/xampp/htdocs/susar_dp_v2/public/07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf"  target="_blank">Ce lien affiche le PDF dans le navigateur</a> #}
-{# <a href="file:///C:\xampp\htdocs\susar_dp_v2\public\07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf"  target="_blank">Ce lien affiche le PDF dans le navigateur</a> #}
-{# <a href="file:///C:\xampp\htdocs\susar_dp_v2\public\07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf">test1.pdf</a><br>
-<a href="file:///C:/xampp/htdocs/susar_dp_v2/public/07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf">test2.pdf</a><br>
-<a href=".\07Apr2020_RIVAROXABAN_CZ-BAYER-2019-203779-CT_C.pdf"  target="_blank">test3.pdf</a><br> #}
-{# <a href="fichier.php">Test1</a><br>
-
-<a href="fichier2.php?link=S:\SUSAR\SUSARPROD\SUSAR\DP2\2020\Semestre1\04\CARDIO1\Prioritaires\20200330_AZP01-CLI-003_2018-003062-13_US_2020USLIVOLETIDE0015_0_CT_C.PDF">Test2</a><br> #}
-
+</div>
 
 <div class="container-fluid mt-3 mb-5 pb-5">
     <table class="table table-striped">
@@ -125,6 +164,11 @@
         </tbody>
     </table>
 </div>
+{% endblock %}
 
 
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('./build/AffSusar.js') }}"></script>
+    {# {{ encore_entry_script_tags('AffSusar') }} #}
 {% endblock %}

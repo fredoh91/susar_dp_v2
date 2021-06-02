@@ -1,112 +1,337 @@
-$bBrdGrey:Gainsboro;
+$bBrdGrey: Gainsboro;
+$BckGrnd: #fff5ee;
 
+body {
+  background-color: $BckGrnd;
+}
 
-
+%box_rq {
+  border: solid;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
+}
 .requete {
-    border: solid;
-    border-radius: 20px;
-    padding: 10px;
-    margin: 10px;
-    position: relative;
+  @extend %box_rq;
+  border-color: black;
+  position: relative;
 }
-
+.reqsimple_btn {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
+}
+%frm_chp {
+  padding: 10px;
+}
 .requete_simple {
-    
+  @extend %box_rq;
+  border-color: chocolate;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: "frm_dp frm_eval frm_eval frm_dmm frm_dmm frm_dmm frm_dmm";
 }
 
+.frm_dp {
+  @extend %frm_chp;
+  grid-area: frm_dp;
+}
+.frm_eval {
+  @extend %frm_chp;
+  grid-area: frm_eval;
+}
+.frm_dmm {
+  @extend %frm_chp;
+  grid-area: frm_dmm;
+}
 .requete_avancee {
-    
+  @extend %box_rq;
+  border-color: darkseagreen;
 }
 
-.btnRechSusar{
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+%rq_ {
+  padding: 3px;
+  // margin: 10px;
+}
+.requete_SUSAR {
+  @extend %box_rq;
+  border-color: darkseagreen;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "rq_deces rq_pro_vital rq_france rq_vol_sain rq_COVID"
+    "rq_CIOMS rq_CIOMS rq_idSusar rq_NumEudraCT rq_NumCas"
+    ". . rq_DateRecep rq_DateRecep rq_DateRecep";
+}
+
+.rq_deces {
+  @extend %rq_;
+  grid-area: rq_deces;
+}
+.rq_pro_vital {
+  @extend %rq_;
+  grid-area: rq_pro_vital;
+}
+.rq_france {
+  @extend %rq_;
+  grid-area: rq_france;
+}
+.rq_COVID {
+  @extend %rq_;
+  grid-area: rq_COVID;
+}
+.rq_vol_sain {
+  @extend %rq_;
+  grid-area: rq_vol_sain;
+}
+.rq_CIOMS {
+  @extend %rq_;
+  grid-area: rq_CIOMS;
+}
+.rq_idSusar {
+  @extend %rq_;
+  grid-area: rq_idSusar;
+}
+.rq_NumEudraCT {
+  @extend %rq_;
+  grid-area: rq_NumEudraCT;
+}
+.rq_NumCas {
+  @extend %rq_;
+  grid-area: rq_NumCas;
+}
+.rq_DateRecep {
+  @extend %rq_;
+  grid-area: rq_DateRecep;
+}
+.DateRecep {
+  // @extend .requete_SUSAR_evalues;
+  @extend %box_rq;
+  border-color: darkseagreen;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+}
+.requete_SUSAR_evalues {
+  @extend %box_rq;
+  border-color: darkseagreen;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "rq_Effet rq_Comment rq_Comment rq_Prod rq_Prod"
+    "rq_Evalue rq_UtilEvalDP rq_MesAct rq_TypMesAct rq_FollUp"
+    ". . rq_DateEval rq_DateEval rq_DateEval";
+}
+// 
+.rq_Effet {
+  @extend %rq_;
+  grid-area: rq_Effet;
+}
+.rq_FollUp {
+  @extend %rq_;
+  grid-area: rq_FollUp;
+}
+.rq_Comment {
+  @extend %rq_;
+  grid-area: rq_Comment;
+}
+.rq_Prod {
+  @extend %rq_;
+  grid-area: rq_Prod;
+}
+.rq_Evalue {
+  @extend %rq_;
+  grid-area: rq_Evalue;
+}
+.rq_UtilEvalDP {
+  @extend %rq_;
+  grid-area: rq_UtilEvalDP;
+}
+.rq_MesAct {
+  @extend %rq_;
+  grid-area: rq_MesAct;
+}
+.rq_FollUp {
+  @extend %rq_;
+  grid-area: rq_FollUp;
+}
+.rq_TypMesAct {
+  @extend %rq_;
+  grid-area: rq_TypMesAct;
+}
+.rq_DateEval {
+  @extend %rq_;
+  grid-area: rq_DateEval;
+}
+.DateEval {
+  // @extend .requete_SUSAR_evalues;
+  @extend %box_rq;
+  border-color: darkseagreen;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+}
+
+
+
+.btnSusar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+}
+
+.btnSusarVer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: stretch;
+}
+.btnRechSusar {
+  /*font-family: "Limelight", cursive;
+  font-family: "Poiret One", cursive;*/
+  text-align: center;
+  width: 180px;
+  user-select: none;
+  font-size: 1.2rem;
+  margin: 5px;
+  padding: 10px 40px;
+  border-radius: 10px;
+  border: 1px solid LightSkyBlue;
+  background: #fc7f3c;
+  color: black;
+  cursor: pointer;
+  /*transition: width,background, 2s linear 1s;*/
+  background: linear-gradient(
+    to bottom,
+    #ebf1f6 0%,
+    #abd3ee 50%,
+    #89c3eb 51%,
+    #d5ebfb 100%
+  );
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.4);
+  &:hover {
+    color: LightCyan;
+    background: linear-gradient(
+      to bottom,
+      #d0e4f7 0%,
+      #73b1e7 24%,
+      #0a77d5 50%,
+      #539fe1 79%,
+      #87bcea 100%
+    );
+  }
+  &:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.4),
+      inset 2px 2px 3px rgba(0, 0, 0, 0.4);
+  }
 }
 
 %TdSusar {
-    border: solid;
-    border-color: $bBrdGrey;
-    border-width: thin;
-  }
-
+  border: solid;
+  border-color: $bBrdGrey;
+  border-width: thin;
+}
 
 .cntrGrid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    // grid-template-rows: 25% 25% 25% 25%;
-    grid-template-rows: auto;
-    grid-template-areas: 
-      "cioms cioms cioms cioms cioms cioms prod effet comm comm"
-      "dtimport dp gamme dteval eval follup prod effet comm comm"
-      "mesact mesact mesact mesact mesact idsusar prod effet comm comm"
-      "numeudra numeudra numcas numcas numcas attrib prod effet comm comm";
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "cioms cioms cioms cioms cioms cioms prod effet comm comm"
+    "dtimport dp gamme dteval eval follup prod effet comm comm"
+    "mesact mesact mesact mesact mesact idsusar prod effet comm comm"
+    "numeudra numeudra numcas numcas numcas attrib prod effet comm comm";
 }
 
 .cioms {
-    @extend %TdSusar;
-    grid-area: cioms;
-  }
-  .dtimport {
-    @extend %TdSusar;
-    grid-area: dtimport;
-  }
-  .dp {
-    @extend %TdSusar;
-    grid-area: dp;
-  }
-  .gamme {
-    @extend %TdSusar;
-    grid-area: gamme;
-  }
-  .dteval {
-    @extend %TdSusar;
-    grid-area: dteval;
-  }
-  .eval {
-    @extend %TdSusar;
-    grid-area: eval;
-  }
-  .follup {
-    @extend %TdSusar;
-    grid-area: follup;
-  }
-  .mesact {
-    @extend %TdSusar;
-    grid-area: mesact;
-  }
-  .idsusar {
-    @extend %TdSusar;
-    grid-area: idsusar;
-  }
-  .numeudra {
-    @extend %TdSusar;
-    grid-area: numeudra;
-  }
-  .numcas {
-    @extend %TdSusar;
-    grid-area: numcas;
-  }
-  .attrib {
-    @extend %TdSusar;
-    grid-area: attrib;
-    justify-self: center;
-  }
-  .prod {
-    @extend %TdSusar;
-    grid-area: prod;
-  }
-  .effet {
-    @extend %TdSusar;
-    grid-area: effet;
-  }
-  .comm {
-    @extend %TdSusar;
-    grid-area: comm;
-  }
+  @extend %TdSusar;
+  grid-area: cioms;
+}
+.dtimport {
+  @extend %TdSusar;
+  grid-area: dtimport;
+}
+.dp {
+  @extend %TdSusar;
+  grid-area: dp;
+}
+.gamme {
+  @extend %TdSusar;
+  grid-area: gamme;
+}
+.dteval {
+  @extend %TdSusar;
+  grid-area: dteval;
+}
+.eval {
+  @extend %TdSusar;
+  grid-area: eval;
+}
+.follup {
+  @extend %TdSusar;
+  grid-area: follup;
+}
+.mesact {
+  @extend %TdSusar;
+  grid-area: mesact;
+}
+.idsusar {
+  @extend %TdSusar;
+  grid-area: idsusar;
+}
+.numeudra {
+  @extend %TdSusar;
+  grid-area: numeudra;
+}
+.numcas {
+  @extend %TdSusar;
+  grid-area: numcas;
+}
+.attrib {
+  @extend %TdSusar;
+  grid-area: attrib;
+  justify-self: center;
+}
+.prod {
+  @extend %TdSusar;
+  grid-area: prod;
+}
+.effet {
+  @extend %TdSusar;
+  grid-area: effet;
+}
+.comm {
+  @extend %TdSusar;
+  grid-area: comm;
+}
 
-  .titreTD {
-    font-size: 0.8em;
-    text-decoration: underline;
-    font-weight: bold;
-  }
+.titreTD {
+  font-size: 0.8em;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.visible {
+  visibility: visible;
+}
+.invisible {
+  visibility: hidden;
+}
