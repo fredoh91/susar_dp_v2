@@ -5,7 +5,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('./build/css/AffSusar.css') }}">
+    {{ encore_entry_link_tags('css/AffSusar') }}
+    <!-- <link rel="stylesheet" href="{{ asset('./build/css/AffSusar.css') }}"> -->
     <!-- <link rel="stylesheet" href="./build/css/AffSusar.css"> -->
 {% endblock %}
 
@@ -169,6 +170,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('./build/AffSusar.js') }}"></script>
-    {# {{ encore_entry_script_tags('AffSusar') }} #}
+    {# <script type="text/javascript" src="{{ asset('./build/AffSusar.js') }}"></script> #}
+    {{ encore_entry_script_tags('AffSusar') }}
 {% endblock %}
