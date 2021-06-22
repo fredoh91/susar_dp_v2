@@ -162,5 +162,93 @@ class RqSusarDP {
         return $where;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @return string
+     */
+    public function getWhere_get(array $data, EntityManagerInterface $em): string {
+        $where = "";
+        foreach ($data as $key => $value) {
+
+
+            // dump($key, $value);
+            // if($value!==null) {
+            //     $where .= " AND $key = ?";
+            // }
+            if($key === 'DP' and $value !== null and $value !== '') {
+                // dump("bind param : DP");
+                // $where[$icpt] = $value->getNomDP();
+                // $icpt++;
+                $where .= " AND SUSAR_EVAL.DP = ? ";
+            }elseif($key === 'Evaluateurs' and $value !== null and $value !== '') {
+                // dump("bind param : evalu");
+                // $where[$icpt] = $value->getNomEval();
+                // $icpt++;
+                $where .= " AND SUSAR_EVAL.evaluateurDP = ? ";
+            }elseif($key === 'DMM' and $value !== null and $value !== '') {
+
+                // dd($value);
+                // dd( $em);
+                $whereDMM = '';
+                $repo_eval = $em->getRepository(Evaluateurs::class);
+                $liste_eval = $repo_eval->findByDMM_id($value);
+                // dd($liste_eval);
+                foreach ($liste_eval as $k => $v) {
+                    // $where .= " AND SUSAR_EVAL.evaluateurDP = ? ";
+                    // dd($v->getNomEval());
+                    if($whereDMM === '') {
+                        $whereDMM .= " SUSAR_EVAL.evaluateurDP = '" . $v->getNomEval() . "'" ;
+                    } else {
+                        $whereDMM .= " OR SUSAR_EVAL.evaluateurDP = '" . $v->getNomEval() . "'" ;
+                    }
+                    
+                    
+                }
+                // dd($whereDMM);
+                // $repoEval = new EvaluateursRepository();
+                // dd($repoEval->findByDMM_id($value->getId()));
+                // dd($repoEval->findByDMM_id($value->getId()));
+                // dd($value->getNomEval());
+                // dump("bind param : DMM");
+                // $where[$icpt] = $value->getDMMCourt();
+                // $icpt++;
+                // $where .= " AND $key = ? ";
+                $where .= " AND ($whereDMM) ";
+            }else {}
+        }
+
+        // dd();
+        return $where;
+
+    }
+    /**
+     * Undocumented function
+     *
+     * @param array $data
+     * @return string
+     */
+    public function getWhereBindParam_get(array $data): array {
+        $where =  array();
+        $icpt = 1;
+        foreach ($data as $key => $value) {
+            if($key === 'DP' and $value !== null) {
+                // dump("bind param : DP");
+                $where[$icpt] = $value;
+                $icpt++;
+            }elseif($key === 'Evaluateurs' and $value !== null) {
+                // dump("bind param : evalu");
+                $where[$icpt] = $value;
+                $icpt++;
+            }elseif($key === 'DMM' and $value !== null) {
+                // dump("bind param : DMM");
+                // $where[$icpt] = $value->getDMMCourt();
+                // $icpt++;
+            }else {}
+        }
+        return $where;
+    }
+
  
 }

@@ -8,13 +8,42 @@
     {{ encore_entry_link_tags('css/AffSusar') }}
     <!-- <link rel="stylesheet" href="{{ asset('./build/css/AffSusar.css') }}"> -->
     <!-- <link rel="stylesheet" href="./build/css/AffSusar.css"> -->
-{% endblock %}
-
-
+{% endblock %} 
 
 {% block body %}
+<span>{{ NbLigneReq }}</span>
+
+<div>
+    {# {{ app.request.get('DMM') }} #}
+    {# {{ app.request.get('susar_dp_form[DMM]') }} #}
+    {# {{ app.request.query.get('DMM') }}
+    {{ app.request.query.get('susar_dp_form[DMM]') }} #}
+
+    {# {{ dump(datas_get) }} #}
+
+    {# {% for data_get in datas_get %} #}
+    {# {{ dump(data_get.DMM) }} #}
+        {# {{ data_get|string() }} #}
+    {# {% endfor %} #}
+</div>
+
+<div>
+    {# <a href="{{ path('affiche_susar_testpagi', { 'page': '1' }) }}">1</a>
+    <a href="{{ path('affiche_susar_testpagi', { 'page': '2' }) }}">2</a>
+    <a href="{{ path('affiche_susar_testpagi', { 'page': '3' }) }}">3</a>
+    <a href="{{ path('affiche_susar_testpagi', { 'page': '4' }) }}">4</a> #}
+
+    <a href="{{ path('affiche_susar_testpagi', { 'page': '1', 'DMM': '4' }) }}">1</a>
+    <a href="{{ path('affiche_susar_testpagi', { 'page': '2', 'DMM': '4' }) }}">2</a>
+    <a href="{{ path('affiche_susar_testpagi', { 'page': '3', 'DMM': '4' }) }}">3</a>
+    <a href="{{ path('affiche_susar_testpagi', { 'page': '4', 'DMM': '4' }) }}">4</a>
+</div>
+
 <div class="requete">
-    {{ form_start(form, {'attr': {'id': 'form_susar_dp'},'action': path('affiche_susar')}  ) }}
+    {# {{ form_start(form, {'attr': {'id': 'form_susar_dp'},'action': path('affiche_susar')}  ) }} #}
+    {{ form_start(form, {'attr': {'id': 'form_susar_dp'},
+                         'action': path('affiche_susar_testpagi', { 'page': '1' }),
+                         'method': 'GET' })}}
     <div class="reqsimple_btn">
         <div class="requete_simple">
             <div class="frm_dp">{{ form_row(form.DP) }}</div>
@@ -29,8 +58,6 @@
         </div>
 
     </div>
-
-    
 
     <div class="requete_avancee">
 
@@ -165,8 +192,8 @@
         </tbody>
     </table>
 </div>
-{% endblock %}
 
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
