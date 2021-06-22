@@ -33,10 +33,10 @@
     <a href="{{ path('affiche_susar_testpagi', { 'page': '3' }) }}">3</a>
     <a href="{{ path('affiche_susar_testpagi', { 'page': '4' }) }}">4</a> #}
 
-    <a href="{{ path('affiche_susar_testpagi', { 'page': '1', 'DMM': '4' }) }}">1</a>
-    <a href="{{ path('affiche_susar_testpagi', { 'page': '2', 'DMM': '4' }) }}">2</a>
-    <a href="{{ path('affiche_susar_testpagi', { 'page': '3', 'DMM': '4' }) }}">3</a>
-    <a href="{{ path('affiche_susar_testpagi', { 'page': '4', 'DMM': '4' }) }}">4</a>
+    <a href="{{ path('affiche_susar_testpagi') }}{{param_get}}&susar_dp_form%5Bpage%5D=1">1</a>
+    <a href="{{ path('affiche_susar_testpagi') }}{{param_get}}&susar_dp_form%5Bpage%5D=2">2</a>
+    <a href="{{ path('affiche_susar_testpagi') }}{{param_get}}&susar_dp_form%5Bpage%5D=3">3</a>
+    <a href="{{ path('affiche_susar_testpagi') }}{{param_get}}&susar_dp_form%5Bpage%5D=4">4</a>
 </div>
 
 <div class="requete">

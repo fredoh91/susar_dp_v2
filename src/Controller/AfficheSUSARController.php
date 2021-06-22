@@ -55,6 +55,9 @@ class AfficheSUSARController extends AbstractController
         $form = $this->createForm(SusarDPFormType::class);
         // dump($request->query->all());
         $data_get = $request->query->all();
+        $param_get = $this->FormatParamGet($data_get['susar_dp_form']);
+
+        // dd($param_get);
         // dd($data_get);
         // dd($data_get->get('DMM'));
         // var_dump($data_get);
@@ -66,54 +69,19 @@ class AfficheSUSARController extends AbstractController
             //  Paramètre en GET, on retourne une partie des SUSARs
             // dump("tableau param plein");
             $clauseWhere = $RqSusarDP->getWhere_get($data_get['susar_dp_form'], $em);
-// dd("stop");
+
             $clauseWhereBindParam = $RqSusarDP->getWhereBindParam_get($data_get['susar_dp_form']);
             $AllSusarDP = $RqSusarDP->SelectSusar($clauseWhere, $clauseWhereBindParam);
             
-            $page = $request->query->get('page');
-            // dump($clauseWhere);
-            // dump($clauseWhereBindParam);
+            // $page = $request->query->get('page');
+            $page = $request->query->get('susar_dp_form')['page'];
+
         }
 
-        // die();
-        // if ($request->query->all() === null) {
-        //     dump("c est nul");
-        // }
-        // $form->handleRequest($request);
-
-
-// dump($AllSusarDP);
-// dd("stop");
-        
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     dump("submitted");
-        //     $data = $form->getData();
-        //     dd($data);
-        //     $clauseWhere = $RqSusarDP->getWhere($data, $em);
-        //     $clauseWhereBindParam = $RqSusarDP->getWhereBindParam($data);
-
-        //     // dump($clauseWhereBindParam);
-        //     // dd($clauseWhere);
-        //     $AllSusarDP = $RqSusarDP->SelectSusar($clauseWhere, $clauseWhereBindParam);
-        //     $this->AllSusarDP = $AllSusarDP;
-        // } else {
-        //     dump("Pas submitted");
-        //     if ($page===null or $page===1) {
-        //         dump("premiere page de la liste");
-        //         $AllSusarDP = $RqSusarDP->SelectAllSusar();
-        //         $this->AllSusarDP = $AllSusarDP;
-        //     } else {
-        //         dump("page suivante de la liste");
-                
-        //         $AllSusarDP = $this->AllSusarDP;
-        //     }
-            
-        // }
-        // dump($AllSusarDP);
         $NbLigneReq = count($AllSusarDP);
         $AllSusarDP = array_slice($AllSusarDP,$page * $NbParPage,$NbParPage);
 
-
+        dump($page);
         // dd(count($AllSusarDP));
         // dd($AllSusarDP);
         return $this->render('affiche_susar/AffSusar.html.twig', [
@@ -122,8 +90,29 @@ class AfficheSUSARController extends AbstractController
             'page' => $page,
             'NbParPage' => $NbParPage,
             'NbLigneReq' => $NbLigneReq,
-            'datas_get' => $data_get,
+            'param_get' => $param_get,
         ]);        
     } 
+
+    public function FormatParamGet($param_get):string {
+        $param = '';
+        // dd($param_get);
+        foreach ($param_get  as $key => $value) {
+            // dump($key,$value);
+
+            if ($key === 'DateRecepDeb' or $key === 'DateRecepFin' or $key === 'DateEvalDeb' or $key === 'DateEvalFin') {
+                
+            } else {
+                $value_format = ($value === '') ? '' : $value;
+                if($param === '') {
+                    $param = '?susar_dp_form%5B'.$key.'%5D='.$value_format;
+                } else {
+                    $param .= '&susar_dp_form%5B'.$key.'%5D='.$value_format;;
+                }
+            }
+        }
+        // dd($param);
+        return $param;
+    }
 
 }
