@@ -11,38 +11,28 @@
 {% endblock %} 
 
 {% block body %}
-<span>{{ NbLigneReq }}</span>
 
-<div>
-    {# {{ app.request.get('DMM') }} #}
-    {# {{ app.request.get('susar_dp_form[DMM]') }} #}
-    {# {{ app.request.query.get('DMM') }}
-    {{ app.request.query.get('susar_dp_form[DMM]') }} #}
 
-    {# {{ dump(datas_get) }} #}
+<div class="center">
+    <div class="pagination">
+        <a href="{{ path('affiche_susar') }}{{param_get}}{% if param_get is empty %}?{% else %}&{% endif %}susar_dp_form%5Bpage%5D=1" >&laquo;</a>
+        
+{% for NumPage in ListeNumPage %}
 
-    {# {% for data_get in datas_get %} #}
-    {# {{ dump(data_get.DMM) }} #}
-        {# {{ data_get|string() }} #}
-    {# {% endfor %} #}
+    <a href="{{ path('affiche_susar') }}{{param_get}}{% if param_get is empty %}?{% else %}&{% endif %}susar_dp_form%5Bpage%5D={{ NumPage }}" 
+    {% if NumPage == page %}  class="active" {% endif %}>{{ NumPage }}
+    </a>        
+    
+{% endfor %}
+        <a href="{{ path('affiche_susar') }}{{param_get}}{% if param_get is empty %}?{% else %}&{% endif %}susar_dp_form%5Bpage%5D={{(NbLigneReq // NbParPage)}}">&raquo;</a>
+    </div>
 </div>
 
-<div>
-    {# <a href="{{ path('affiche_susar_testpagi', { 'page': '1' }) }}">1</a>
-    <a href="{{ path('affiche_susar_testpagi', { 'page': '2' }) }}">2</a>
-    <a href="{{ path('affiche_susar_testpagi', { 'page': '3' }) }}">3</a>
-    <a href="{{ path('affiche_susar_testpagi', { 'page': '4' }) }}">4</a> #}
-
-    <a href="{{ path('affiche_susar_testpagi') }}{{param_get}}&susar_dp_form%5Bpage%5D=1">1</a>
-    <a href="{{ path('affiche_susar_testpagi') }}{{param_get}}&susar_dp_form%5Bpage%5D=2">2</a>
-    <a href="{{ path('affiche_susar_testpagi') }}{{param_get}}&susar_dp_form%5Bpage%5D=3">3</a>
-    <a href="{{ path('affiche_susar_testpagi') }}{{param_get}}&susar_dp_form%5Bpage%5D=4">4</a>
-</div>
 
 <div class="requete">
-    {# {{ form_start(form, {'attr': {'id': 'form_susar_dp'},'action': path('affiche_susar')}  ) }} #}
+
     {{ form_start(form, {'attr': {'id': 'form_susar_dp'},
-                         'action': path('affiche_susar_testpagi', { 'page': '1' }),
+                         'action': path('affiche_susar', { 'page': '1' }),
                          'method': 'GET' })}}
     <div class="reqsimple_btn">
         <div class="requete_simple">
@@ -110,7 +100,8 @@
     {{ form_end(form) }}
 </div>
 <div class="nb_susar">
-  Nb SUSARs : {{ SusarsDP | length }}
+    {# Nb SUSARs : {{ SusarsDP | length }} #}
+    Nb SUSARs : {{ NbLigneReq }}
 </div>
 
 <div class="container-fluid mt-3 mb-5 pb-5">

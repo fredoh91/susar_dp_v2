@@ -6,19 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\MsAccess\Requetes\RqSusarDP;
+use App\MsAccess\Pagination\MsAccessPaginator;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\SusarDPFormType;
 use Doctrine\ORM\EntityManagerInterface;
 class AfficheSUSARController extends AbstractController
 {
     /**
-     * @Route("/affichesusar/{page<\d+>?1}", name="affiche_susar")
+     * @Route("/affichesusar_old/{page<\d+>?1}", name="affiche_susar_old")
      * @return Response
      */
 
     // private $AllSusarDP;
     
-    public function AffSusar(Request $request, RqSusarDP $RqSusarDP, EntityManagerInterface $em): Response
+    public function AffSusar_old(Request $request, RqSusarDP $RqSusarDP, EntityManagerInterface $em): Response
     {
 
         $form = $this->createForm(SusarDPFormType::class);
@@ -46,16 +47,16 @@ class AfficheSUSARController extends AbstractController
         ]);        
     } 
     /**
-     * @Route("/affichesusartestpagi", name="affiche_susar_testpagi")
+     * @Route("/affichesusar", name="affiche_susar")
      * @return Response
      */
-    public function AffSusarTestPagi(Request $request, RqSusarDP $RqSusarDP, EntityManagerInterface $em): Response
+    public function AffSusar(Request $request, RqSusarDP $RqSusarDP, EntityManagerInterface $em): Response
     {
         $NbParPage = 30;
         $form = $this->createForm(SusarDPFormType::class);
         // dump($request->query->all());
         $data_get = $request->query->all();
-        $param_get = $this->FormatParamGet($data_get['susar_dp_form']);
+        // $param_get = $this->FormatParamGet($data_get['susar_dp_form']);
 
         // dd($param_get);
         // dd($data_get);
@@ -65,7 +66,9 @@ class AfficheSUSARController extends AbstractController
             //  Pas de paramètre en GET, on retourne tous les SUSARs
             $AllSusarDP = $RqSusarDP->SelectAllSusar();
             $page = 1;
+            $param_get = "";
         } else {
+            $param_get = $this->FormatParamGet($data_get['susar_dp_form']);
             //  Paramètre en GET, on retourne une partie des SUSARs
             // dump("tableau param plein");
             $clauseWhere = $RqSusarDP->getWhere_get($data_get['susar_dp_form'], $em);
@@ -74,16 +77,19 @@ class AfficheSUSARController extends AbstractController
             $AllSusarDP = $RqSusarDP->SelectSusar($clauseWhere, $clauseWhereBindParam);
             
             // $page = $request->query->get('page');
-            $page = $request->query->get('susar_dp_form')['page'];
+            if (isset($request->query->get('susar_dp_form')['page'])) {
+                $page = $request->query->get('susar_dp_form')['page'];
+            } else {
+                $page = 1;
+            }
 
         }
 
         $NbLigneReq = count($AllSusarDP);
         $AllSusarDP = array_slice($AllSusarDP,$page * $NbParPage,$NbParPage);
+        $pagi = new MsAccessPaginator($NbLigneReq, $NbParPage);
+        $ListeNumPage = $pagi->ListeNumPage($page, 3);
 
-        dump($page);
-        // dd(count($AllSusarDP));
-        // dd($AllSusarDP);
         return $this->render('affiche_susar/AffSusar.html.twig', [
             'SusarsDP' => $AllSusarDP,
             'form' => $form->createView(),
@@ -91,6 +97,7 @@ class AfficheSUSARController extends AbstractController
             'NbParPage' => $NbParPage,
             'NbLigneReq' => $NbLigneReq,
             'param_get' => $param_get,
+            'ListeNumPage' => $ListeNumPage,
         ]);        
     } 
 

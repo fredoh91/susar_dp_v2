@@ -335,3 +335,27 @@ body {
 .invisible {
   visibility: hidden;
 }
+
+
+// Pagination
+
+.pagination {
+  display: inline-block;
+  a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+  }  
+  a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+  } 
+  a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+  }  
+}
+
+.center {text-align: center;}
